@@ -29,6 +29,8 @@ You can contribute to our project in many way! Here are just a few examples of t
 
 If you spot a problem with any of our documents, search if that issue already exists. If a related issue doesn't exist, you can always open a new issue.
 
+Before forking and opening a PR, make sure to create issue and have one of the administrators agree that it is an issue. We don't want you to waste any of your time!
+
 #### Solve an issue
 
 Look through existing issues and if any interest you, feel free to open a PR with a fix for our code/documents. You can use the `labels` as filters to search for things you're passionate about.
@@ -36,6 +38,8 @@ Look through existing issues and if any interest you, feel free to open a PR wit
 #### Make Changes to our Code
 
 Follow the [contributing to a project](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) guidelines to open your own fork of the project and commit your changes. Then, open your pull request and wait for one of the gym leaders (administrators) to review it and hopefully we can incorporate your changes! Don't forget to self-review your update to speed up the review process.
+
+We follow the PEP8 [style guide](https://peps.python.org/) so please ensure code is tidy and easy to read as such.
 
 Make sure you fill in the proper documentation to help our team understand the changes and the purpose of the PR. Also, if you are solving a known `issue`, please link the PR to the issue! Note: we may ask questions, request additional information or suggest changes before the PR can be merged.
 
