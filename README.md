@@ -44,7 +44,7 @@ These explorations will help us determine if any features should be dropped and 
 We will attempt to use various classification models to predict the Pokemon types. The models will be implemented using [sklearn](https://scikit-learn.org/stable/index.html). Some such models that are considered are:
 
 - Support Vector Classifier (SVC)
-- $k$ - Nearest Neighbours ($k$-NN)
+- $k$ - Nearest Neighbours ( $k$ -NN)
 - Logistic Regression
 
 The models each have their own set of hyperparameters that will have to be optimized using cross-validation. We will use average accuracy as the metric to determine each of these hyperparameters and show plots of the accuracy and hyperparameters to determine the best ones.
@@ -68,10 +68,10 @@ You can switch to this environment using:
 conda activate poketype
 ```
 
-To download the data, ensure that you have a `data/raw` folder in the parent directory. Then, use the command:
+To download the data so that it works with our analysis, ensure you are in the parent directory in your terminal. Then, use the command:
 
 ```console
-python 
+python src/download-data.py --url=https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv out_file=data/raw/pokemon.csv
 ```
 
 To run the EDA, please open the EDA file in the `src` directory and run all the cells.
