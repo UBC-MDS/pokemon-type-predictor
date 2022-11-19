@@ -71,7 +71,7 @@ conda activate poketype
 To download the data so that it works with our analysis, ensure you are in the parent directory in your terminal. Then, use the command:
 
 ```console
-python src/download-data.py --url=https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv out_file=data/raw/pokemon.csv
+python src/download-data.py --url=https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv --out_file=data/raw/pokemon.csv
 ```
 
 To run the EDA, please open the EDA file in the `src` directory and run all the cells.
