@@ -44,7 +44,7 @@ These explorations will help us determine if any features should be dropped and 
 We will attempt to use various classification models to predict the Pokemon types. The models will be implemented using [sklearn](https://scikit-learn.org/stable/index.html). Some such models that are considered are:
 
 - Support Vector Classifier (SVC)
-- $k$ - Nearest Neighbours ($k$ -NN)
+- $k$ - Nearest Neighbours ( $k$ -NN)
 - Logistic Regression
 
 The models each have their own set of hyperparameters that will have to be optimized using cross-validation. We will use average accuracy as the metric to determine each of these hyperparameters and show plots of the accuracy and hyperparameters to determine the best ones.
