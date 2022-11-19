@@ -21,7 +21,7 @@ Pokemon (the creatures) share the same name as the title of the franchise. These
 
 As a way to keep children attentive to the show and more familiar with the franchise, the show often asked the famous question "Who's that Pokemon?!" at the beginning of a commercial break, with an image of the shaded outline of a Pokemon. The show would reveal the Pokemon at the end of the commercial break, rewarding those who stayed through the advertisements.
 
-Initially inspired by this ploy of the franchise, we thought it might be interesting to predict something related to the Pokemon. This thought was further developed when we remembered that as each generation of the franchise is released, the players encounter brand new Pokemon that the world has never seen. When encountering a new Pokemon, the game gives no indication to its type, leading us to our question: given the attributes of an undiscovered Pokemon, are we able to predict its type? Subsequently, what if the Pokemon has two types? Are we able to predict its second type?
+Initially inspired by this ploy of the franchise, we thought it might be interesting to predict something related to the Pokemon. This thought was further developed when we remembered that as each generation of the franchise is released, the players encounter brand new Pokemon that the world has never seen. When encountering a new Pokemon, the game gives no indication to its type, leading us to our question: given the attributes of an undiscovered Pokemon, are we able to predict its type?
 
 ## Data
 
@@ -29,7 +29,7 @@ While this question has been done before using only the statistics (Note: we use
 
 Each row in the dataset contains a different Pokemon with various attributes. The attributes are measurements of the base Pokemon, such as `attack`, `speed` or `defense`.
 
-The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey. To complicate this even further, there are some Pokemon with more than one type, such as Pidgey, who has both `Normal` and `Flying` types. We can use this to our advantage by combining the two types such that thse Pokemon will appear twice in our dataset, extending the number of "Pokemon" available (as currently there are only approximately 1000 unique Pokemon). For the Pokemon with only one type, we will fill their type with `N/A` as a type. These will come into play in our results.
+The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey. To complicate this even further, there are some Pokemon with more than one type, such as Pidgey, who has both `Normal` and `Flying` types. We can use this to our advantage by using the second type as a feature that may lead to discovering the first type.
 
 ## Exploratory Data Analysis
 
