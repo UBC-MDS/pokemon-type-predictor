@@ -13,7 +13,7 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(url, out_file):
-    data = pd.read_csv(url, header=None)
+    data = pd.read_csv(url, index_col=1)
     try:
         data.to_csv(out_file, index=False)
     except:
