@@ -18,7 +18,7 @@ opt = docopt(__doc__)
 def main(input_file, out_dir):
     
     #reads input file
-    data = pd.read_csv(input_file, index_col=1)
+    data = pd.read_csv(input_file)
     
     #adds missing values of TYPE2 column from TYPE1 column
     data['TYPE2'] = data['TYPE2'].fillna(data['TYPE1'])
