@@ -60,6 +60,7 @@ def main(input_dir, out_dir):
     random_search.fit(X_train, y_train)
 
     # save best model
+    best_model = random_search.best_estimator_
 
     # read in test data
     test_df = pd.read_csv(os.path.join(input_dir, 'test.csv'))
