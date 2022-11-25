@@ -17,6 +17,7 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.model_selection import cross_validate, GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import pickle
 from docopt import docopt
 
 opt = docopt(__doc__)
@@ -59,15 +60,31 @@ def main(input_dir, out_dir):
     )
     random_search.fit(X_train, y_train)
 
+    #save cv results
+    pd.DataFrame(
+        random_search.cv_results_
+    ).set_index('rank_test_score').sort_index()[[
+        'param_kneighborsclassifier__n_neighbors',
+        'mean_fit_time',
+        'mean_score_time',
+        'mean_test_score',
+        'mean_train_score'
+    ]].to_csv(os.path.join(out_dir, 'knn_cv_results.csv'))
+
     # save best model
     best_model = random_search.best_estimator_
+    with open(os.path.join(out_dir, 'best_knn.pickle'), 'wb') as model_file:
+        pickle.dump(best_model, model_file, protocol = pickle.HIGHEST_PROTOCOL)
 
     # read in test data
     test_df = pd.read_csv(os.path.join(input_dir, 'test.csv'))
     X_test, y_test = test_df.drop(columns = ['TYPE1']), test_df['TYPE1']
 
     # score model on test data and save
-    score = best_model.score(X_test, y_test)
+    pd.DataFrame(
+        [best_model.score(X_test, y_test)], 
+        columns=['knn']
+    ).to_csv(os.path.join(out_dir, 'knn_test_score.csv'), index=False)
 
     # create confusion matrix and save
     cm = ConfusionMatrixDisplay.from_estimator(
@@ -78,7 +95,7 @@ def main(input_dir, out_dir):
         xticks_rotation='vertical'
     )
 
-    cm.figure_.savefig(os.path.join(out_dir, 'confusion_matrix.png'), bbox_inches='tight')
+    cm.figure_.savefig(os.path.join(out_dir, 'knn_confusion_matrix.png'), bbox_inches='tight')
 
 
 if __name__ == "__main__":
