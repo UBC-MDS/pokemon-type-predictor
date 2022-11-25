@@ -1,5 +1,5 @@
 """
-Fits, optimizes a k-NN model on training data, then scores it on the test data.
+Optimizes and fits a k-NN model on training data, then scores it on the test data.
 Usage: knn.py --input_dir=<input_dir> --out_dir=<out_dir> 
  
 Options:
@@ -22,6 +22,23 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(input_dir, out_dir):
+    # read in data and split into X and y
+    train_df = pd.read_csv(os.path.join(input_dir, 'train.csv'))
+    X_train, y_train = train_df.drop(columns=['TYPE1']), train_df['TYPE1']
+
+    # create preprocessor
+
+    # create pipeline
+
+    # hyperparameter (k) optimization
+
+    # save best model
+
+    # read in test data
+
+    # score model on test data and save
+
+    # create confusion matrix and save
 
 
 if __name__ == "__main__":
