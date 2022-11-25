@@ -45,7 +45,6 @@ We will attempt to use various classification models to predict the Pokemon type
 
 - Support Vector Classifier (SVC)
 - $k$ - Nearest Neighbours ( $k$ -NN)
-- Logistic Regression
 
 The models each have their own set of hyperparameters that will have to be optimized using cross-validation. We will use average accuracy as the metric to determine each of these hyperparameters and show plots of the accuracy and hyperparameters to determine the best ones.
 
