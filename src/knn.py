@@ -27,14 +27,39 @@ def main(input_dir, out_dir):
     X_train, y_train = train_df.drop(columns=['TYPE1']), train_df['TYPE1']
 
     # create preprocessor
+    categorical_variables = ['TYPE2', 'COLOR', 'ABILITY1', 'ABILITY2', 'ABILITY HIDDEN']
+    numeric_variables = ['HEIGHT', 'WEIGHT', 'HP', 'ATK', 'DEF', 'SP_ATK', 'SP_DEF', 'SPD']
+    passthrough_variables = ['LEGENDARY', 'MEGA_EVOLUTION']
+    drop_variables = ['NUMBER', 'CODE', 'SERIAL', 'NAME', 'GENERATION', 'TOTAL']
+
+    preprocessor = make_column_transformer(
+        (OneHotEncoder(handle_unknown='ignore'), categorical_variables),
+        (StandardScaler(), numeric_variables),
+        ('passthrough', passthrough_variables),
+        ('drop', drop_variables)
+    )
 
     # create pipeline
+    knn_pipe = make_pipeline(
+        preprocessor, KNeighborsClassifier()
+    )
 
     # hyperparameter (k) optimization
+    param_grid = {
+        'kneighborsclassifier__n_neighbors': range(1, 20)
+    }
+    random_search = GridSearchCV(
+        knn_pipe, 
+        param_grid,
+        cv=5,
+        return_train_score=True
+    )
+    random_search.fit(X_train, y_train)
 
     # save best model
 
     # read in test data
+
 
     # score model on test data and save
 
