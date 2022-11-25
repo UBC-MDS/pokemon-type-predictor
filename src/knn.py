@@ -22,6 +22,9 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(input_dir, out_dir):
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
     # read in data and split into X and y
     train_df = pd.read_csv(os.path.join(input_dir, 'train.csv'))
     X_train, y_train = train_df.drop(columns=['TYPE1']), train_df['TYPE1']
@@ -59,11 +62,22 @@ def main(input_dir, out_dir):
     # save best model
 
     # read in test data
-
+    test_df = pd.read_csv(os.path.join(input_dir, 'test.csv'))
+    X_test, y_test = test_df.drop(columns = ['TYPE1']), test_df['TYPE1']
 
     # score model on test data and save
+    score = best_model.score(X_test, y_test)
 
     # create confusion matrix and save
+    cm = ConfusionMatrixDisplay.from_estimator(
+        best_model, 
+        X_test, 
+        y_test, 
+        values_format = 'd',
+        xticks_rotation='vertical'
+    )
+
+    cm.figure_.savefig(os.path.join(out_dir, 'confusion_matrix.png'), bbox_inches='tight')
 
 
 if __name__ == "__main__":
