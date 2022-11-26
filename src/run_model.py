@@ -1,6 +1,6 @@
 """
-Optimize and fit an SVC model on training data. Scores it on the test data,
-then produces scores and confusion matrices
+Optimize and fits either kNN, SVC or both models on training data. Scores it on the test data,
+then produces CV scores, test scores and confusion matrices as files in /results
 Usage: run_model.py --model=<model> --in_dir=<in_dir> --out_dir=<out_dir> 
  
 Options:
@@ -41,14 +41,13 @@ def get_data_splits(in_dir, train=True):
     return X, y
 
 
-def get_pipe_search(model, preprocessor):
+def get_search(model, preprocessor):
 
     if model == 'knn':
         param_dist = {
-        'kneighborsclassifier__n_neighbors': range(1, 20)
+        'kneighborsclassifier__n_neighbors': list(range(1, 21))
         }
         estimator = KNeighborsClassifier()
-        search = GridSearchCV
 
     elif model == 'svc':
         param_dist = {
@@ -56,7 +55,6 @@ def get_pipe_search(model, preprocessor):
         "svc__C": loguniform(1e-2, 1e3)
         }
         estimator = SVC()
-        search = RandomizedSearchCV
 
     # create pipeline
     pipe = make_pipeline(
@@ -64,11 +62,13 @@ def get_pipe_search(model, preprocessor):
     )
 
     # Hyperparameter optimization
-    random_search = search(
+    random_search = RandomizedSearchCV(
         pipe, 
         param_dist,
+        n_iter=50,
         cv=5,
-        return_train_score=True
+        return_train_score=True,
+        random_state=123
     )
     
     return random_search
@@ -77,15 +77,17 @@ def get_pipe_search(model, preprocessor):
 def save_files(model_name, random_search, out_dir, X_test, y_test):
     """
     """
+
+    out_dir = os.path.join(out_dir, model_name)
+
+    # make results directory
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
     if model_name == 'knn':
-        param_lst = [
-        'param_kneighborsclassifier__n_neighbors'
-    ]
+        param_lst = ['param_kneighborsclassifier__n_neighbors']
     else:
-        param_lst = [
-            'param_svc__alpha',
-            'param_svc__gamma'
-        ]
+        param_lst = ['param_svc__C', 'param_svc__gamma']
 
     # columns from CV we want to keep
     col_lst = param_lst + [
@@ -98,9 +100,9 @@ def save_files(model_name, random_search, out_dir, X_test, y_test):
         ]
 
     # file names
-    search_cv_filename = model_name + '_randsearch_cv_results.csv'
+    search_cv_filename =  model_name + '_randsearch_cv_results.csv'
     best_model_filename = 'best_' + model_name + '.pickle'
-    conf_matrx_filename = model_name + 'confusion_matrix.png'
+    conf_matrx_filename = model_name + '_confusion_matrix.png'
     test_score_filename = model_name + '_test_score.csv'
 
     # save cv results from HP optimization
@@ -136,10 +138,6 @@ def save_files(model_name, random_search, out_dir, X_test, y_test):
 
 
 def main(model, in_dir, out_dir):
-    
-    # make results directory
-    if not os.path.exists(out_dir):
-        os.makedirs(out_dir)
 
     # read in the data
     X_train, y_train = get_data_splits(in_dir, train=True)
@@ -162,23 +160,23 @@ def main(model, in_dir, out_dir):
         for sep_model in ['knn', 'svc']:
 
             # perform the hyperparameter optimization
-            random_search = get_pipe_search(sep_model, preprocessor)
+            random_search = get_search(sep_model, preprocessor)
             random_search.fit(X_train, y_train)
 
             save_files(sep_model, random_search, out_dir, X_test, y_test)
 
     else:
         # perform the hyperparameter optimization
-        random_search = get_pipe_search(model, preprocessor)
+        random_search = get_search(model, preprocessor)
         random_search.fit(X_train, y_train)
 
-        save_files(sep_model, random_search, out_dir, X_test, y_test)
+        save_files(model, random_search, out_dir, X_test, y_test)
 
 
 if __name__ == "__main__":
     try:
         opt = docopt(__doc__)
-        main(opt["--model"], opt["--inp_dir"], opt["--out_dir"])
+        main(opt["--model"], opt["--in_dir"], opt["--out_dir"])
     except DocoptExit:
         print(__doc__)
     
