@@ -44,7 +44,7 @@ conda activate poketype
 To download the data so that it works with our analysis, ensure you are in the parent directory in your terminal. Then, use the command:
 
 ```console
-python src/download-data.py --url=https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv --out_file=data/raw/pokemon.csv
+python src/download_data.py --url=https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv --out_file=data/raw/pokemon.csv
 ```
 
 To process and split the data after downloading it above, you can run the following command:
@@ -56,13 +56,13 @@ python src/preprocessing.py --input_file=data/raw/pokemon.csv --out_dir=data/pro
 To run the EDA, you can use the following command:
 
 ```console
-python src/pokemnon_eda.py --train=data/processed/train.csv --out_dir=results/eda/
+python src/pokemon_eda.py --train=data/processed/train.csv --out_dir=results/eda/
 ```
 
-Then, to run the statistical models, you can use the following command. To run all the models, use `--model=all`, otherwise you can specify with `dummy`, `knn`, or `svc`.
+Then, to run the statistical models, you can use the following command. To run all the models, use `--model=all`, otherwise you can specify with `dummy`, `knn`, or `svc`. Note that running this script may take some time.
 
 ```console
-python src/poke_training.py --model=all --train=data/processed/ --out_dir=results/
+python src/poke_training.py --model=all --in_dir=data/processed/ --out_dir=results/
 ```
 
 To reproduce the final report, please run:
