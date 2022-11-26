@@ -31,18 +31,45 @@ from docopt import docopt, DocoptExit
 
 
 def get_data_splits(in_dir, train=True):
+    """ 
+    Splits either `train` or `test` data into its features/values and labels
+
+    Parameters:
+    ------
+    in_dir:        (str)  path to processed data
+    train:         (bool) Sets the csv filename for which type of data we need
+
+    Returns:
+    ------
+    X:             (pd DataFrame) dataframe containing the relevant features and values
+    y:             (pd DataFrame) dataframe containing the relevant labels
+    """
     if train:
         data_type = 'train.csv'
     else:
         data_type = 'test.csv'            
     df = pd.read_csv(os.path.join(in_dir, data_type))
     
+    # split into features/values and labels
     X, y = df.drop(columns=['TYPE1']), df['TYPE1']
     return X, y
 
 
 def get_search(model, preprocessor):
+    """ 
+    Creates the search object needed to optimize the hyperparameters.
+    Has predefined distributions used for each model.
 
+    Parameters:
+    ------
+    model:          (str) name of the estimator to run
+    preprocessor:   (column_transformer) preprocessor with the relevant transformations
+
+    Returns:
+    ------
+    search object from `RandomizedSearchCV`
+    """
+    # decide the model and relevant hyperparameters to optimize
     if model == 'knn':
         param_dist = {
         'kneighborsclassifier__n_neighbors': list(range(1, 21))
@@ -61,7 +88,7 @@ def get_search(model, preprocessor):
         preprocessor, estimator
     )
 
-    # Hyperparameter optimization
+    # define the hyperparameter optimization
     random_search = RandomizedSearchCV(
         pipe, 
         param_dist,
@@ -75,7 +102,18 @@ def get_search(model, preprocessor):
 
 
 def save_files(model_name, random_search, out_dir, X_test, y_test):
-    """
+    """ 
+    Saves a csv of the search's CV scores, a csv of the best model 
+    on the test set, a pickle copy of the best model and the confusion matrix
+    produced by the best model.
+
+    Parameters:
+    ------
+    model_name:     (str)                name of the estimator being run, for filepaths
+    random_search:  (RandomizedSearchCV) Search object that has already been trained
+    out_dir:        (str)                name of the output directory to save the files
+    X_test:         (pd DataFrame)       Dataframe containing the testing features and values
+    y_test:         (pd DataFrame)       Dataframe containing the testing labels
     """
 
     out_dir = os.path.join(out_dir, model_name)
@@ -133,12 +171,19 @@ def save_files(model_name, random_search, out_dir, X_test, y_test):
         values_format = 'd',
         xticks_rotation='vertical'
     )
-
     cm.figure_.savefig(os.path.join(out_dir, conf_matrx_filename), bbox_inches='tight')
 
 
 def main(model, in_dir, out_dir):
+    """
+    Wrapper function to carry out the script pipeline
 
+    Parameters:
+    ------
+    model:      (str)   name of estimator to be tested
+    in_dir:     (str)   path to the processed data directory (not including filenames)
+    out_dir:    (str)   path to the results directory
+    """
     # read in the data
     X_train, y_train = get_data_splits(in_dir, train=True)
     X_test, y_test = get_data_splits(in_dir, train=False)
@@ -179,4 +224,3 @@ if __name__ == "__main__":
         main(opt["--model"], opt["--in_dir"], opt["--out_dir"])
     except DocoptExit:
         print(__doc__)
-    
