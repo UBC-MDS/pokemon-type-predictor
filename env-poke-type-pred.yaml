@@ -22,6 +22,8 @@ dependencies:
   - imbalanced-learn
   - pip
   - lightgbm
+  - vl_convert
+  - dataframe_image
   - pip:
     - joblib==1.1.0
     - mglearn
