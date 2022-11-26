@@ -1,3 +1,6 @@
+# author: Sarah Abdelazim
+# date: 2022-11-18
+
 """Downloads data csv data from the web to a local filepath as a csv.
 Usage: download_data.py --url=<url> --out_file=<out_file> 
  

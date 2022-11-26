@@ -1,3 +1,6 @@
+# author: Sarah Abdelazim
+# date: 2022-11-23
+
 """Cleans and preprocesses pokemon data (https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv) in preparation for model implementation.
 Splits the data into train and test sets, writes them and saves them to csv files.
 
