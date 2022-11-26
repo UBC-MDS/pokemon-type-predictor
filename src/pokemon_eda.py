@@ -15,6 +15,7 @@ import pandas as pd
 import altair as alt
 import vl_convert as vlc
 import dataframe_image as dfi
+from docopt import docopt
 
 
 def save_chart(chart, filename, scale_factor=1):
@@ -39,16 +40,8 @@ def save_chart(chart, filename, scale_factor=1):
             f.write(vlc.vegalite_to_png(chart.to_dict(), scale=scale_factor))
     else:
         raise ValueError("Only svg and png formats are supported")
-      
-
-from docopt import docopt
-
-opt = docopt(__doc__)
-
 
 def main(train, out_dir):
-    
-    
   #reads input file  
   train_df = pd.read_csv(train)
   
@@ -56,7 +49,6 @@ def main(train, out_dir):
   describe = train_df.describe()
   dfi.export(describe, out_dir + 'EDA_data_description.png')
   
-
   #create png file : distribution of numerical columns
   num_dist = alt.Chart(train_df, title='Distribution of different numerical columns').mark_bar().encode(
      alt.X(alt.repeat(), type='quantitative', bin=alt.Bin(maxbins=40)),
@@ -68,7 +60,6 @@ def main(train, out_dir):
     ['NUMBER','CODE','GENERATION','LEGENDARY','MEGA_EVOLUTION', 'HEIGHT', 'WEIGHT','HP','ATK','DEF','SP_ATK','SP_DEF','SPD','TOTAL'], columns=3
   )
   save_chart(num_dist, out_dir + 'EDA_dist_of_num.png')
-    
     
   #create png file : distribution of categorical columns 
   cat_dist = alt.Chart(train_df, title='Distribution of different categorical columns').mark_bar().encode(
@@ -99,10 +90,13 @@ def main(train, out_dir):
     size='count()')
   save_chart(type_vs_color, out_dir + 'EDA_type1_vs_color.png')
 
-
   #create png file : Correlation Table
   correlation = train_df.corr("spearman").style.background_gradient()
   dfi.export(correlation, out_dir + 'EDA_correlation.png')
 
 if __name__ == "__main__":
-  main(opt["--train"], opt["--out_dir"])
+  try:
+    opt = docopt(__doc__)
+    main(opt["--train"], opt["--out_dir"])
+  except:
+    print(__doc__)
