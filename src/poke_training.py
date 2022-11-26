@@ -1,3 +1,6 @@
+# authors: Wilfred Hass, with code adapted from Caroline Tang
+# date: 2022-11-23
+
 """
 Optimize and fits either kNN, SVC or both models on training data. Scores it on the test data,
 then produces CV scores, test scores and confusion matrices as files in /results
