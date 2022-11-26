@@ -35,17 +35,25 @@ Before forking and opening a PR, make sure to create issue and have one of the a
 
 Look through existing issues and if any interest you, feel free to open a PR with a fix for our code/documents. You can use the `labels` as filters to search for things you're passionate about.
 
-#### Make Changes to our Code
+### Make Changes to our Code
 
 Follow the [contributing to a project](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) guidelines to open your own fork of the project and commit your changes. Then, open your pull request and wait for one of the gym leaders (administrators) to review it and hopefully we can incorporate your changes! Don't forget to self-review your update to speed up the review process.
 
 We follow the PEP8 [style guide](https://peps.python.org/) so please ensure code is tidy and easy to read as such.
 
-Make sure you fill in the proper documentation to help our team understand the changes and the purpose of the PR. Also, if you are solving a known `issue`, please link the PR to the issue! Note: we may ask questions, request additional information or suggest changes before the PR can be merged.
+#### Gym Members
+
+Gym Members are part of the core team who will follow the proper branching and `git` ettiquette when submitting a pull request. These members can contribute to adding new features and discussions on the direction of the project. Gym members are able to review and accept pull requests.
+
+#### Pokemon Trainers
+
+If you are looking to contribute to this project, this is likely where you fit in! Start training by reviewing the proper documentation and finding issues that we need help with.
+
+Make sure you fill in the proper documentation to help our team understand the changes and the purpose of the PR. Also, if you are solving a known `issue`, please link the PR to the issue! Note: Gym members may ask questions, request additional information or suggest changes before the PR can be merged. Not just any trainer can get a gym badge!
 
 After these steps, your PR will be merged! On behalf of Pokemon trainers everywhere, we thank you for your contribution.
 
-## Contributing Gym Members (authors):]
+## Contributing Gym Members (authors)
 
 - Caroline Tang (Gym Leader)
 - Sarah Abdelazim (Gym Leader)
