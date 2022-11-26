@@ -16,7 +16,11 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(input_file, out_dir):
-    
+
+    # make the output directory
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+        
     #reads input file
     data = pd.read_csv(input_file)
     
@@ -33,13 +37,9 @@ def main(input_file, out_dir):
     train_df, test_df = train_test_split(data, test_size=0.3, random_state=123)
     
     #writes the train and test csv files and saves them
-    try:
-        train_df.to_csv(os.path.join(out_dir, "train.csv"), index=False)
-        test_df.to_csv(os.path.join(out_dir, "test.csv"), index=False)
-    except:
-        os.makedirs(os.path.dirname(out_dir))
-        train_df.to_csv(out_dir + "train.csv", index=False)
-        test_df.to_csv(out_dir + "test.csv", index=False)
+    train_df.to_csv(os.path.join(out_dir, "train.csv"), index=False)
+    test_df.to_csv(os.path.join(out_dir, "test.csv"), index=False)
+
 
 if __name__ == "__main__":
     main(opt["--input_file"], opt["--out_dir"])

@@ -56,13 +56,13 @@ python src/preprocessing.py --input_file=data/raw/pokemon.csv --out_dir=data/pro
 To run the EDA, you can use the following command:
 
 ```console
-python src/eda-visual.py --train=data/processed/train.csv --out_dir=results/eda/
+python src/pokemnon_eda.py --train=data/processed/train.csv --out_dir=results/eda/
 ```
 
 Then, to run the statistical models, you can use the following command. To run all the models, use `--model=all`, otherwise you can specify with `dummy`, `knn`, or `svc`.
 
 ```console
-python src/run_model.py --train=data/processed/ --out_dir=results/
+python src/poke_training.py --model=all --train=data/processed/ --out_dir=results/
 ```
 
 To reproduce the final report, please run:
