@@ -5,7 +5,7 @@ Usage: preprocessing.py --input_file=<input_file> --out_dir=<out_dir>
  
 Options:
 --input_file=<input_file>       Path (including filename) to raw data (csv file)
---out_dir=<out_dir>             Path (including filename) of where to locally write the file
+--out_dir=<out_dir>             Path of where to locally write the file
 """
 
 import os
@@ -34,8 +34,8 @@ def main(input_file, out_dir):
     
     #writes the train and test csv files and saves them
     try:
-        train_df.to_csv(out_dir + "train.csv", index=False)
-        test_df.to_csv(out_dir + "test.csv", index=False)
+        train_df.to_csv(os.path.join(out_dir, "train.csv"), index=False)
+        test_df.to_csv(os.path.join(out_dir, "test.csv"), index=False)
     except:
         os.makedirs(os.path.dirname(out_dir))
         train_df.to_csv(out_dir + "train.csv", index=False)
