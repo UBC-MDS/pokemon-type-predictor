@@ -1,3 +1,6 @@
+# author: Tsz Fung Ho
+# date: 2022-11-25
+
 """Creates eda plots for the pre-processed training data from the pokemon.csv 
 (from https://gist.github.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c).
 Saves the plots as a png file.
