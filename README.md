@@ -24,7 +24,7 @@ The data is found [here](https://gist.github.com/HansAnonymous/56d3c1f8136f7e038
 Each row in the dataset contains a different Pokemon with various attributes. The attributes are measurements of the base Pokemon, such as `attack`, `speed` or `defense`.The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey.
 
 ## Report
-The final report is available [here](/doc/final_report.md)
+The final report is available [here](/doc/final_report.html)
 
 ## Usage
 
@@ -65,10 +65,12 @@ Then, to run the statistical models, you can use the following command. To run a
 python src/poke_training.py --model=all --in_dir=data/processed/ --out_dir=results/
 ```
 
+Note that R version 4.2.1 and the R package `knitr` (v1.40) are required to render the final report.
+
 To reproduce the final report, please run:
 
 ```console
-Rscript -e "rmarkdown::render('src/final_report.Rmd')"
+Rscript -e "rmarkdown::render('doc/final_report.Rmd')"
 ```
 
 ## License
