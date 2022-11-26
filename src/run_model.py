@@ -4,14 +4,15 @@ then produces CV scores, test scores and confusion matrices as files in /results
 Usage: run_model.py --model=<model> --in_dir=<in_dir> --out_dir=<out_dir> 
  
 Options:
---model=<model>           Model to run (knn | svc | both)
+--model=<model>           Model to run (dummy | knn | svc | all)
 --in_dir=<in_dir>         Path to processed data folder
 --out_dir=<out_dir>       Path to folder in which to export the results
 
 Arguments:
-    model: knn - kNN model
-           svc - SVC model
-           both - runs both the kNN model and the SVC model
+    model:  dummy - Dummy classifier model
+            knn - kNN model
+            svc - SVC model
+            all - runs all models above
 """
 
 # Imports
@@ -23,6 +24,7 @@ from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.model_selection import cross_validate, RandomizedSearchCV, GridSearchCV
+from sklearn.dummy import DummyClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -83,6 +85,10 @@ def get_search(model, preprocessor):
         }
         estimator = SVC()
 
+    elif model == 'dummy':
+        param_dist = {}
+        estimator = DummyClassifier()
+
     # create pipeline
     pipe = make_pipeline(
         preprocessor, estimator
@@ -124,8 +130,10 @@ def save_files(model_name, random_search, out_dir, X_test, y_test):
 
     if model_name == 'knn':
         param_lst = ['param_kneighborsclassifier__n_neighbors']
-    else:
+    elif model_name == 'svc':
         param_lst = ['param_svc__C', 'param_svc__gamma']
+    else:
+        param_lst = []
 
     # columns from CV we want to keep
     col_lst = param_lst + [
@@ -201,8 +209,8 @@ def main(model, in_dir, out_dir):
         ('drop', drop_variables)
     )
 
-    if model == 'both':
-        for sep_model in ['knn', 'svc']:
+    if model == 'all':
+        for sep_model in ['dummy', 'knn', 'svc']:
 
             # perform the hyperparameter optimization
             random_search = get_search(sep_model, preprocessor)
