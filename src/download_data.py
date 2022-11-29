@@ -20,9 +20,8 @@ def main(url, out_file):
     try:
         data.to_csv(out_file, index=False)
     except:
-        os.makedirs(os.path.dirname(out_file, index=False))
-        data.to_csv(out_file)
-
+        os.makedirs(os.path.dirname(out_file))
+        data.to_csv(out_file, index=False)
 
 if __name__ == "__main__":
     main(opt["--url"], opt["--out_file"])
