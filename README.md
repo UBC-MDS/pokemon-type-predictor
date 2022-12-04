@@ -1,3 +1,4 @@
+<!-- #region -->
 # Pokemon Type Predictor
 
 ## Authors
@@ -24,12 +25,14 @@ The data is found [here](https://gist.github.com/HansAnonymous/56d3c1f8136f7e038
 Each row in the dataset contains a different Pokemon with various attributes. The attributes are measurements of the base Pokemon, such as `attack`, `speed` or `defense`.The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey.
 
 ## Pipeline
-![Alt text](results/pipeline/pipeline_diagram.png)
+![Alt text](doc/pipeline/pipeline_diagram.png)
 
 ## Report
 The final report is available [here](/doc/final_report.md)
 
 ## Usage
+
+### Create Environment
 
 To replicate the analysis, first clone this GitHub repository. Then, install `nb_conda_kernels` in you **base** environment. Now, install the dependencies listed in the `env-poke-type-pred.yaml` file below as an Anaconda environment, using:
 
@@ -44,37 +47,50 @@ You can switch to this environment using:
 conda activate poketype
 ```
 
-To download the data so that it works with our analysis, ensure you are in the parent directory in your terminal. Then, use the command:
+### Analysis
 
-```console
-python src/download_data.py --url=https://gist.githubusercontent.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c/raw/f91faec7cb2fd08b3c28debf917a576c225d8174/pokemon.csv --out_file=data/raw/pokemon.csv
-```
+#### 1\. Without using Docker
 
-To process and split the data after downloading it above, you can run the following command:
+To replicate the analysis, clone this GitHub repository, install the
+[dependencies](#Dependencies) listed below, and run the following
+command at the command line/terminal from the root directory of this
+project:
+ 
+    make all
 
-```console
-python src/preprocessing.py --input_file=data/raw/pokemon.csv --out_dir=data/processed/
-```
+To reset the repo to a clean state, with no intermediate or results
+files, run the following command at the command line/terminal from the
+root directory of this project:
 
-To run the EDA, you can use the following command:
+    make clean
 
-```console
-python src/pokemon_eda.py --train=data/processed/train.csv --out_dir=results/eda/
-```
+## Dependencies
 
-Then, to run the statistical models, you can use the following command. To run all the models, use `--model=all`, otherwise you can specify with `dummy`, `knn`, or `svc`. Note that running this script may take some time.
-
-```console
-python src/poke_training.py --model=all --in_dir=data/processed/ --out_dir=results/
-```
-
-Note that R version 4.2.1 and the R package `knitr` (v1.40) are required to render the final report.
-
-To reproduce the final report, please run:
-
-```console
-Rscript -e "rmarkdown::render('doc/final_report.Rmd')"
-```
+- Conda Packages:
+  - ipykernel
+  - matplotlib>=3.2.2
+  - scikit-learn>=1.1.3
+  - requests>=2.24.0
+  - graphviz
+  - python-graphviz
+  - eli5
+  - shap
+  - jinja2
+  - altair
+  - altair_saver
+  - selenium<4.3.0
+  - pandas<1.5
+  - imbalanced-learn
+  - lightgbm
+  - dataframe_image
+- Pip Packages:
+    - joblib==1.1.0
+    - mglearn
+    - otter-grader
+    - psutil>=5.7.2
+    - docopt-ng
+    - vl-convert-python
+    
 
 ## License
 
@@ -85,3 +101,8 @@ The Pokemon Type Predictor materials here are licensed under the Creative Common
 We attribute the creation of the `license` file to Tiffany Timbers, with more information available in the `license` file.
 
 The data is attributed to the GitHub users: [HansAnonymous](https://gist.github.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c), [simsketch](https://gist.github.com/simsketch) and the online [Pokemon database](https://pokemondb.net/pokedex).
+<!-- #endregion -->
+
+```python
+
+```
