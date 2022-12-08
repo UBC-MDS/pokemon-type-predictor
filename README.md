@@ -16,7 +16,7 @@ Data analysis project created in part of requirements for DSCI 522 (Data Science
 
 ## About
 
-In this project, we attempt to build a classification model using two algorithms: $k$ - Nearest Neighbours and a Support Vector Machine. We will use this classification model to classify a Pokemon's type (of which there are 18 possible types) based on the other stats (such as attack, defense, etc.) that it has. We use accuracy as the metric to score our models since there is no detriment to false positives or negatives, but we do want to know how many of the unknown Pokemon will be predicted correctly. On the unseen test data, the $k$ -NN model predicted 60% of the new Pokemon correctly while the SVC model predicted 67% correctly. Since these are not very accurate results, we recommend trying different estimators to fill up that Pokedex!
+In this project, we attempt to classify a Pokemon's type (of which there are 18 possible types) based on the other stats (such as attack, defense, etc.) that it has. We chose $k$-Nearest Neighbours ($k$-NN) and Support Vector Classifier (SVC) algorithms for our models since they naturally support multi-class classifications, without having to use 'One-vs-One' or 'One-vs-Rest' methods. We use accuracy as the metric to score our models since there is no detriment to false positives or negatives, but we do want to know how many of the unknown Pokemon will be predicted correctly. On the unseen test data, the $k$ -NN model predicted 60% of the new Pokemon correctly while the SVC model predicted 67% correctly. Since these are not very accurate results, we recommend trying different estimators to fill up that Pokedex!
 
 ## Data
 
@@ -128,7 +128,3 @@ We attribute the creation of the `license` file to Tiffany Timbers, with more in
 
 The data is attributed to the GitHub users: [HansAnonymous](https://gist.github.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c), [simsketch](https://gist.github.com/simsketch) and the online [Pokemon database](https://pokemondb.net/pokedex).
 <!-- #endregion -->
-
-```python
-
-```
