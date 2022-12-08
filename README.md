@@ -27,12 +27,15 @@ Each row in the dataset contains a different Pokemon with various attributes. Th
 ## Pipeline
 ![Alt text](doc/pipeline/pipeline_diagram.png)
 
+
 ## Report
 The final report is available [here](/doc/final_report.md)
 
 ## Usage
 
-### Create Environment
+### Analysis
+
+#### 1\. Without using Docker
 
 To replicate the analysis, first clone this GitHub repository. Then, install `nb_conda_kernels` in you **base** environment. Now, install the dependencies listed in the `env-poke-type-pred.yaml` file below as an Anaconda environment, using:
 
@@ -46,23 +49,20 @@ You can switch to this environment using:
 ```console
 conda activate poketype
 ```
+You will also need to install the R version and R packages listed [here](#dependencies)
+Then run this command:
 
-### Analysis
-
-#### 1\. Without using Docker
-
-To replicate the analysis, clone this GitHub repository, install the
-[dependencies](#Dependencies) listed below, and run the following
-command at the command line/terminal from the root directory of this
-project:
- 
-    make all
+```console
+make all
+```
 
 To reset the repo to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
 
-    make clean
+```console
+make clean
+```
 
 ## Dependencies
 
