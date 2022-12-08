@@ -25,10 +25,12 @@ The data is found [here](https://gist.github.com/HansAnonymous/56d3c1f8136f7e038
 Each row in the dataset contains a different Pokemon with various attributes. The attributes are measurements of the base Pokemon, such as `attack`, `speed` or `defense`.The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey.
 
 ## Pipeline
+
 ![Alt text](doc/pipeline/pipeline_diagram.png)
 
 
 ## Report
+
 The final report is available [here](/doc/final_report.md)
 
 ## Usage
