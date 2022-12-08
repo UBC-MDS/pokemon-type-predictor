@@ -90,33 +90,50 @@ root directory of this project:
 make clean
 ```
 
+#### 2\. Using Docker
+
+To replicate the analysis using Docker, first clone this GitHub repository. You will also need Docker installed on your computer and have it turned on. You can follow the instructions [here](https://docs.docker.com/get-docker/) if you need to install Docker. After installation, you can run the following command to build the Docker image in the parent directory of the repository folder in your computer.
+
+```console
+docker build --tag pokeball .
+```
+
+You can then reproduce the analysis using:
+
+```console
+docker run -it --rm -v /$(pwd):/home/jovyan testpoke make -C /home/jovyan/ 
+```
+
+To reset the repo to a clean state, with no intermediate or results
+files, run the following command at the command line/terminal from the
+root directory of this project:
+
+```console
+docker run -it --rm -v /$(pwd):/home/jovyan testpoke make -C /home/jovyan/ clean
+```
+
 ## Dependencies
 
 - Conda Packages:
-  - ipykernel
-  - matplotlib>=3.2.2
-  - scikit-learn>=1.1.3
-  - requests>=2.24.0
-  - graphviz
-  - python-graphviz
-  - eli5
-  - shap
-  - jinja2
-  - altair
-  - altair_saver
-  - selenium<4.3.0
-  - pandas<1.5
-  - imbalanced-learn
-  - lightgbm
-  - dataframe_image
+    - ipykernel
+    - matplotlib
+    - scikit-learn>=1.1.3
+    - requests>=2.24.0
+    - graphviz
+    - python-graphviz
+    - altair
+    - altair_saver
+    - selenium<4.2.0
+    - pandas<1.5
+    - imbalanced-learn
 - Pip Packages:
     - joblib==1.1.0
-    - mglearn
-    - otter-grader
     - psutil>=5.7.2
     - docopt-ng
     - vl-convert-python
-    
+- R Packages:
+    - knitr
+    - rmarkdown
 
 ## License
 

@@ -14,9 +14,12 @@ Options:
 import pandas as pd
 import altair as alt
 import vl_convert as vlc
-import dataframe_image as dfi
+# import dataframe_image as dfi
+# import  df2img
 import os
 from docopt import docopt
+import matplotlib.pyplot as plt
+from pandas.plotting import table
 
 
 def save_chart(chart, filename, scale_factor=1):
@@ -49,11 +52,20 @@ def main(train, out_dir):
         os.makedirs(out_dir)
   #reads input file  
   train_df = pd.read_csv(train)
-  
+
   #create data describe table
-  describe = train_df.describe()
-  dfi.export(describe, os.path.join(out_dir, 'EDA_data_description.png'))
-  
+  describe = train_df.describe().round(3)
+  # set up df to save
+  fig, ax = plt.subplots(figsize=(30,2)) 
+  # no axes
+  ax.xaxis.set_visible(False)  
+  ax.yaxis.set_visible(False)  
+  # no frame
+  ax.set_frame_on(False)  
+  # plot table
+  tab = table(ax, describe, loc='center', colLoc='center', cellLoc='center')  
+  plt.savefig(os.path.join(out_dir, 'EDA_data_description.png'), bbox_inches="tight", transparent=True)
+
   #create png file : distribution of numerical columns
   num_dist = alt.Chart(train_df, title='Distribution of different numerical columns').mark_bar().encode(
      alt.X(alt.repeat(), type='quantitative', bin=alt.Bin(maxbins=40)),
@@ -65,7 +77,7 @@ def main(train, out_dir):
     ['NUMBER','CODE','GENERATION','LEGENDARY','MEGA_EVOLUTION', 'HEIGHT', 'WEIGHT','HP','ATK','DEF','SP_ATK','SP_DEF','SPD','TOTAL'], columns=3
   )
   save_chart(num_dist, os.path.join(out_dir, 'EDA_dist_of_num.png'))
-    
+
   #create png file : distribution of categorical columns 
   cat_dist = alt.Chart(train_df, title='Distribution of different categorical columns').mark_bar().encode(
      x='count()',
@@ -96,8 +108,30 @@ def main(train, out_dir):
   save_chart(type_vs_color, os.path.join(out_dir, 'EDA_type1_vs_color.png'))
 
   #create png file : Correlation Table
-  correlation = train_df.corr("spearman").style.background_gradient()
-  dfi.export(correlation, os.path.join(out_dir, 'EDA_correlation.png'))
+  corr_df = (
+    train_df
+    .corr('spearman')                   
+    .stack()                    
+    .reset_index(name='corr')) 
+
+  base = alt.Chart(corr_df, title='Correlation Between Features').mark_rect().encode(
+    x=alt.X('level_0', title='Feature'),
+    y=alt.Y('level_1', title='Feature')
+  ).properties(
+    height=600,
+    width=600
+  )
+  
+  corr_plot = base.mark_rect().encode(
+    color=alt.Color('corr', scale=alt.Scale(scheme="redblue", domainMid=0), title='Correlation')
+  )
+
+  text = base.mark_text(color='black').encode( 
+    text=alt.Text("corr:Q", format="0.2f")
+  )
+  corrMatrix_chart = (corr_plot + text)
+  save_chart(corrMatrix_chart, os.path.join(out_dir, 'EDA_correlation.png'))
+
 
 if __name__ == "__main__":
   try:
