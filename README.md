@@ -37,7 +37,7 @@ The final report is available [here](/doc/final_report.md)
 
 #### 1\. Without using Docker
 
-To replicate the analysis, first clone this GitHub repository. Then, install `nb_conda_kernels` in you **base** environment. Now, install the dependencies listed in the `env-poke-type-pred.yaml` file below as an Anaconda environment, using:
+To replicate the analysis, first clone this GitHub repository. Then, install `nb_conda_kernels` in your **base** environment. Now, install the dependencies listed in the `env-poke-type-pred.yaml` file below as an Anaconda environment, using:
 
 ```console
 conda install -c conda-forge nb_conda_kernels
@@ -49,7 +49,8 @@ You can switch to this environment using:
 ```console
 conda activate poketype
 ```
-You will also need to install the R version and R packages listed [here](#dependencies)
+You will also need to install the R version and R packages listed [here](#dependencies).
+
 Then run this command:
 
 ```console
