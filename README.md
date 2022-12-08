@@ -22,7 +22,32 @@ In this project, we attempt to build a classification model using two algorithms
 
 The data is found [here](https://gist.github.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c). The data was cleaned by [HansAnonymous](https://gist.github.com/HansAnonymous) and originally developed by [simsketch](https://gist.github.com/simsketch). The original data can be found in the [Pokemon database](https://pokemondb.net/pokedex). All rights belong to their respective owners.
 
-Each row in the dataset contains a different Pokemon with various attributes. The attributes are measurements of the base Pokemon, such as `attack`, `speed` or `defense`.The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey.
+Each row in the dataset contains a different Pokemon with various attributes. The attributes are measurements of the base Pokemon, such as `attack`, `speed` or `defense`.The different types of Pokemon are closely related to the other attributes it possesses. For example, a rock type Pokemon is likely to have higher defensive statistics (such as `defense` or `health points`) as well as rock-type abilities. It is also most likely to be coloured grey. A complete description of each feature in the raw dataset is listed below:
+
+| Feature | Description |
+| ------- | ----------- |
+| `NUMBER`  | The National Pokedex Number of the Pokemon, unique to each Pokemon species |
+| `CODE` | Identifier for the form of the pokemon, unique within each Pokemon species |
+| `SERIAL` | Concatenation of `NUMBER` and `CODE`, unique to each row |
+| `NAME` | Name of the Pokemon |
+| `TYPE1` | Primary elemental type |
+| `TYPE2`	| Secondary elemental type, if any |
+| `COLOR`	| Main body color |
+| `ABILITY1` | First passive ability option |
+| `ABILITY2` | Second passive ability option, if any |
+| `ABILITY HIDDEN` | Hidden (rare) passive ability, if any|
+| `GENERATION` | Generation of games where pokemon was first introduced |
+| `LEGENDARY` | Binary, indicates whether a Pokemon is legendary |
+| `MEGA_EVOLUTION` | Binary, indicates whether a row is for the Mega Evolution of a Pokemon |
+| `HEIGHT` | Height (m) |
+| `WEIGHT` | Weight (kg) |
+| `HP` | Base health point (HP) stat |
+| `ATK` | Base physical attack stat |
+| `DEF` | Base physical defense stat |
+| `SP_ATK` | Base special attack stat |
+| `SP_DEF` | Base special defense stat |
+| `SPD` | Base speed stat |
+| `TOTAL` | Sum of base stats |
 
 ## Pipeline
 
