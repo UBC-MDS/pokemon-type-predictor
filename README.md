@@ -31,8 +31,8 @@ Each row in the dataset contains a different Pokemon with various attributes. Th
 | `SERIAL` | Concatenation of `NUMBER` and `CODE`, unique to each row |
 | `NAME` | Name of the Pokemon |
 | `TYPE1` | Primary elemental type |
-| `TYPE2`	| Secondary elemental type, if any |
-| `COLOR`	| Main body color |
+| `TYPE2`| Secondary elemental type, if any |
+| `COLOR`| Main body color |
 | `ABILITY1` | First passive ability option |
 | `ABILITY2` | Second passive ability option, if any |
 | `ABILITY HIDDEN` | Hidden (rare) passive ability, if any|
@@ -53,14 +53,13 @@ Each row in the dataset contains a different Pokemon with various attributes. Th
 
 ![Alt text](doc/pipeline/pipeline_diagram.png)
 
-
 ## Report
 
 The final report is available [here](/doc/final_report.md)
 
 ## Usage
 
-#### 1\. Without using Docker
+### 1\. Without using Docker
 
 To replicate the analysis, first clone this GitHub repository. Then, install `nb_conda_kernels` in your **base** environment. Now, install the dependencies listed in the `env-poke-type-pred.yaml` file below as an Anaconda environment, using:
 
@@ -74,6 +73,7 @@ You can switch to this environment using:
 ```console
 conda activate poketype
 ```
+
 You will also need to install the R version and R packages listed [here](#dependencies).
 
 Then run this command:
@@ -90,50 +90,46 @@ root directory of this project:
 make clean
 ```
 
-#### 2\. Using Docker
+### 2\. Using Docker
 
-To replicate the analysis using Docker, first clone this GitHub repository. You will also need Docker installed on your computer and have it turned on. You can follow the instructions [here](https://docs.docker.com/get-docker/) if you need to install Docker. After installation, you can run the following command to build the Docker image in the parent directory of the repository folder in your computer.
+To replicate the analysis using Docker, first clone this GitHub repository. You will also need Docker installed on your computer and have it turned on. You can follow the instructions [here](https://docs.docker.com/get-docker/) if you need to install Docker. After installation, navigate to the parent directory of the repository.
 
-```console
-docker build --tag pokeball .
-```
-
-You can then reproduce the analysis using:
-
-```console
-docker run -it --rm -v /$(pwd):/home/jovyan pokeball make -C /home/jovyan/ 
-```
-
-To reset the repo to a clean state, with no intermediate or results
+To reset the repository to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
 
 ```console
-docker run -it --rm -v /$(pwd):/home/jovyan pokeball make -C /home/jovyan/ clean
+docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C /home/jovyan clean
+```
+
+Then, you can reproduce the analysis using the following command:
+
+```console
+docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C /home/jovyan all
 ```
 
 ## Dependencies
 
 - Conda Packages:
-    - ipykernel
-    - matplotlib
-    - scikit-learn>=1.1.3
-    - requests>=2.24.0
-    - graphviz
-    - python-graphviz
-    - altair
-    - altair_saver
-    - selenium<4.2.0
-    - pandas<1.5
-    - imbalanced-learn
+  - ipykernel
+  - matplotlib
+  - scikit-learn>=1.1.3
+  - requests>=2.24.0
+  - graphviz
+  - python-graphviz
+  - altair
+  - altair_saver
+  - selenium<4.2.0
+  - pandas<1.5
+  - imbalanced-learn
 - Pip Packages:
-    - joblib==1.1.0
-    - psutil>=5.7.2
-    - docopt-ng
-    - vl-convert-python
+  - joblib==1.1.0
+  - psutil>=5.7.2
+  - docopt-ng
+  - vl-convert-python
 - R Packages:
-    - knitr
-    - rmarkdown
+  - knitr
+  - rmarkdown
 
 ## License
 
