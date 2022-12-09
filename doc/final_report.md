@@ -3,17 +3,17 @@ Predicting Pokemon types
 Caroline Tang, Sarah Abdelazim, Vincent Ho, Wilfred Hass
 2022-11-26
 
-  - [Introduction](#introduction)
-  - [Data](#data)
-  - [EDA](#eda)
-  - [Pre-processing](#pre-processing)
-  - [Analysis](#analysis)
-  - [Results](#results)
-      - [Baseline](#baseline)
-      - [k-NN](#k-nn)
-      - [SVC](#svc)
-  - [Discussion](#discussion)
-  - [References](#references)
+- <a href="#introduction" id="toc-introduction">Introduction</a>
+- <a href="#data" id="toc-data">Data</a>
+- <a href="#eda" id="toc-eda">EDA</a>
+- <a href="#pre-processing" id="toc-pre-processing">Pre-processing</a>
+- <a href="#analysis" id="toc-analysis">Analysis</a>
+- <a href="#results" id="toc-results">Results</a>
+  - <a href="#baseline" id="toc-baseline">Baseline</a>
+  - <a href="#k-nn" id="toc-k-nn">k-NN</a>
+  - <a href="#svc" id="toc-svc">SVC</a>
+- <a href="#discussion" id="toc-discussion">Discussion</a>
+- <a href="#references" id="toc-references">References</a>
 
 # Introduction
 
@@ -30,7 +30,7 @@ different strengths and weaknesses. A combination of these attributes
 (and a little luck) are what determines if a Pokemon will either win or
 lose.
 
-In the show, the famous question “Who’s that Pokemon?\!” was often asked
+In the show, the famous question “Who’s that Pokemon?!” was often asked
 at the beginning of a commercial break, with an image of the shaded
 outline of a Pokemon. The show would reveal the Pokemon at the end of
 the commercial break, rewarding those who stayed through the
@@ -71,24 +71,22 @@ who has both `Normal` and `Flying` types.
 
 # EDA
 
-<div class="figure">
+Most of the numerical attributes appear to be relatively normally
+distributed except for `height` and `weight`, which are right skewed.
+Only a small amount of pokemon can evolve, be legendary or have a mega
+evolution form so it makes sense that `code`, `legendary` and
+`mega_evolution` are so imbalanced.
 
-<img src="../results/eda/EDA_correlation.png" alt="Figure 1. Correlation table between all features in the dataset" width="90%" />
+<img src="../results/eda/EDA_dist_of_num.png" alt="Figure 1. Distributions of numeric characteristics" width="90%" />
 
-<p class="caption">
-
-Figure 1. Correlation table between all features in the dataset
-
-</p>
-
-</div>
-
-In the correlation table (Figure 1), we can see that the numeric
+In the correlation table (Figure 2), we can see that the numeric
 attributes have a high correlation with each other, which makes sense
 because if the pokemon is stronger, its overall score should be higher.
 However, their numerical attributes are not highly correlated with some
 identification variables such as `number`, `code`, `serial` and
 `generation`.
+
+<img src="../results/eda/EDA_correlation.png" alt="Figure 2. Correlation table between all features in the dataset" width="90%" />
 
 # Pre-processing
 
@@ -114,13 +112,10 @@ have abilities that Pokemon in the training set don’t have.
 # Analysis
 
 We attempted to use two different models to classify Pokemon by type: a
-Support Vector Classifier (SVC), and
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k
-"k") - Nearest Neighbours
-(![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k
-"k") -NN). We also compared these two models to a baseline model, the
-dummy classifier. All of these models were implemented in `sklearn`
-(Pedregosa et al. 2011).
+Support Vector Classifier (SVC), and $k$ - Nearest Neighbours ($k$ -NN).
+We also compared these two models to a baseline model, the dummy
+classifier. All of these models were implemented in `sklearn` (Pedregosa
+et al. 2011).
 
 The models each have their own set of hyperparameters that will have to
 be optimized using cross-validation. We will use average accuracy as the
@@ -139,72 +134,36 @@ In a confusion matrix, the perfect prediction has every value in a box
 along the diagonal, with predicted labels on the x-axis and truth labels
 on the y-axis. The entries that are not along the diagonal line tells us
 about what is being predicted incorrectly. As speculated, the dummy
-classifier predicts each type as the most common class, water. Fig. 2
+classifier predicts each type as the most common class, water. Fig. 3
 shows the confusion matrix of the dummy classifier on the unseen Pokemon
 test set. The dummy classifier has an accuracy of 14.2% with a
 cross-validation and training score of 12.4%.
 
-<div class="figure">
-
-<img src="../results/dummy/dummy_confusion_matrix.png" alt="Figure 2. Confusion matrix visualizing the dummy classifier predictions vs the true labels." width="90%" />
-
-<p class="caption">
-
-Figure 2. Confusion matrix visualizing the dummy classifier predictions
-vs the true labels.
-
-</p>
-
-</div>
+<img src="../results/dummy/dummy_confusion_matrix.png" alt="Figure 3. Confusion matrix visualizing the dummy classifier predictions vs the true labels." width="90%" />
 
 ## k-NN
 
-In our
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k
-"k") -NN model, Fig. 3 shows that each value along the diagonal line has
-the highest number in their respective row or column, meaning our model
-correctly predicts every type of Pokemon, most of the time. Our model
-performs pretty well at predicting some types of Pokemon such as Grass
-and Water type. For the Grass type, it correctly predicted 19 out of 26
-possible Grass types and for Water type, it correctly predicted 33 out
-of 45 water types. Overall, the
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k
-"k") -NN had a test accuracy of 60.3% with a cross-validation score of
-56.9% and training score of 100%.
+In our $k$ -NN model, Fig. 4 shows that each value along the diagonal
+line has the highest number in their respective row or column, meaning
+our model correctly predicts every type of Pokemon, most of the time.
+Our model performs pretty well at predicting some types of Pokemon such
+as Grass and Water type. For the Grass type, it correctly predicted 19
+out of 26 possible Grass types and for Water type, it correctly
+predicted 33 out of 45 water types. Overall, the $k$ -NN had a test
+accuracy of 60.3% with a cross-validation score of 56.9% and training
+score of 100%.
 
-<div class="figure">
-
-<img src="../results/knn/knn_confusion_matrix.png" alt="Figure 3. Confusion matrix visualizing predictions from the best k-NN model vs the true labels." width="90%" />
-
-<p class="caption">
-
-Figure 3. Confusion matrix visualizing predictions from the best k-NN
-model vs the true labels.
-
-</p>
-
-</div>
+<img src="../results/knn/knn_confusion_matrix.png" alt="Figure 4. Confusion matrix visualizing predictions from the best k-NN model vs the true labels." width="90%" />
 
 ## SVC
 
-In our SVC model, Fig. 4 shows some marginal improvements in the
+In our SVC model, Fig. 5 shows some marginal improvements in the
 prediction for each class. One of the largest improvements was the
 prediction of Ice types, increasing from 5 correctly predicted Pokemon
 to 10 now. Overall, the SVC has a test accuracy of 69.2% with a
 cross-validation score of 68.6% and training score of 100%.
 
-<div class="figure">
-
-<img src="../results/svc/svc_confusion_matrix.png" alt="Figure 4. Confusion matrix visualizing predictions from the best SVC model vs the true labels." width="90%" />
-
-<p class="caption">
-
-Figure 4. Confusion matrix visualizing predictions from the best SVC
-model vs the true labels.
-
-</p>
-
-</div>
+<img src="../results/svc/svc_confusion_matrix.png" alt="Figure 5. Confusion matrix visualizing predictions from the best SVC model vs the true labels." width="90%" />
 
 # Discussion
 
@@ -217,18 +176,13 @@ our model accuracies.
 
 However, there are some limitations to our models. We note that both
 models are significantly overfitting, since they both have 100% training
-accuracies. The best
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k
-"k")-NN model was with 1 neighbour, which is also indicative of
-overfitting. The second-best
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k
-"k")-NN model was with
-![k=8](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k%3D8
-"k=8"), or 8 neighbours, but the accuracy dropped to about 49%. In terms
-of our data, we initially assumed that all rows were independent of each
-other, but our data contained different forms of the same pokemon (often
-with very similar, if not the exact same stats), and most of the time
-they definitely had the same type.
+accuracies. The best $k$-NN model was with 1 neighbour, which is also
+indicative of overfitting. The second-best $k$-NN model was with $k=8$,
+or 8 neighbours, but the accuracy dropped to about 49%. In terms of our
+data, we initially assumed that all rows were independent of each other,
+but our data contained different forms of the same pokemon (often with
+very similar, if not the exact same stats), and most of the time they
+definitely had the same type.
 
 To improve these models in future, we could investigate some of the most
 misclassified observations and compare them to those which were
@@ -241,16 +195,16 @@ which may also serve as “duplicate values”.
 
 # References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-hansanonymous">
+<div id="ref-hansanonymous" class="csl-entry">
 
 HansAnonymous. n.d. “Pokemon.csv.” *Github*.
 <https://gist.github.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c>.
 
 </div>
 
-<div id="ref-sklearn">
+<div id="ref-sklearn" class="csl-entry">
 
 Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O.
 Grisel, M. Blondel, et al. 2011. “Scikit-Learn: Machine Learning in
@@ -258,7 +212,7 @@ Python.” *Journal of Machine Learning Research* 12: 2825–30.
 
 </div>
 
-<div id="ref-residentmario_2016">
+<div id="ref-residentmario_2016" class="csl-entry">
 
 Residentmario. 2016. “Classifying Pokemon Type by Stat Allocation.”
 *Kaggle*. Kaggle.
@@ -266,7 +220,7 @@ Residentmario. 2016. “Classifying Pokemon Type by Stat Allocation.”
 
 </div>
 
-<div id="ref-shahir_2022">
+<div id="ref-shahir_2022" class="csl-entry">
 
 Shahir, Jamshaid. 2022. “Multi-Label Classification of Pokemon Types
 with Tensorflow.” *Medium*. Towards Data Science.
@@ -274,14 +228,14 @@ with Tensorflow.” *Medium*. Towards Data Science.
 
 </div>
 
-<div id="ref-pandas">
+<div id="ref-pandas" class="csl-entry">
 
 team, The pandas development. 2020. *Pandas-Dev/Pandas: Pandas* (version
 latest). Zenodo. <https://doi.org/10.5281/zenodo.3509134>.
 
 </div>
 
-<div id="ref-python">
+<div id="ref-python" class="csl-entry">
 
 Van Rossum, Guido, and Fred L. Drake. 2009. *Python 3 Reference Manual*.
 Scotts Valley, CA: CreateSpace.

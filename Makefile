@@ -35,8 +35,8 @@ results/svc/best_svc.pickle results/svc/svc_confusion_matrix.png results/svc/svc
 	python src/poke_training.py --model=svc --in_dir=data/processed/ --out_dir=results/
 
 # Render final report
-doc/final_report.html : results/eda/EDA_correlation.png results/dummy/dummy_confusion_matrix.png results/knn/knn_confusion_matrix.png results/svc/svc_confusion_matrix.png doc/pokeref.bib
+doc/final_report.html : results/eda/EDA_dist_of_num.png results/eda/EDA_correlation.png results/dummy/dummy_confusion_matrix.png results/knn/knn_confusion_matrix.png results/svc/svc_confusion_matrix.png doc/pokeref.bib
 	Rscript -e "rmarkdown::render('doc/final_report.Rmd')"
 
-doc/final_report.md : results/eda/EDA_correlation.png results/dummy/dummy_confusion_matrix.png results/knn/knn_confusion_matrix.png results/svc/svc_confusion_matrix.png doc/pokeref.bib
+doc/final_report.md : results/eda/EDA_dist_of_num.png results/eda/EDA_correlation.png results/dummy/dummy_confusion_matrix.png results/knn/knn_confusion_matrix.png results/svc/svc_confusion_matrix.png doc/pokeref.bib
 	Rscript -e "rmarkdown::render('doc/final_report.Rmd', output_format = 'github_document')"
