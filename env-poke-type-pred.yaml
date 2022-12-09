@@ -23,6 +23,7 @@ dependencies:
   - pip
   - lightgbm
   - dataframe_image
+  - nbconvert
   - pip:
     - joblib==1.1.0
     - mglearn
@@ -30,4 +31,5 @@ dependencies:
     - psutil>=5.7.2
     - docopt-ng
     - vl-convert-python
-    
+    - aiohttp
+    - pyppeteer
