@@ -30,11 +30,19 @@ Each row in the dataset contains a different Pokemon and its attributes, includi
 
 # EDA
 
-```{r eda, fig.cap='Figure 1. Correlation table between all features in the dataset', out.width='90%'}
+Most of the numerical attributes appear to be relatively normally distributed except for `height` and `weight`, which are right skewed. Only a small amount of pokemon can evolve, be legendary or have a mega evolution form so it makes sense that `code`, `legendary` and `mega_evolution` are so imbalanced.
+
+```{r eda1, fig.cap="Figure 1. Distributions of numeric characteristics", out.width='90%'}
+knitr::include_graphics("../results/eda/EDA_dist_of_num.png")
+```
+
+In the correlation table (Figure 2), we can see that the numeric attributes have a high correlation with each other, which makes sense because if the pokemon is stronger, its overall score should be higher. However, their numerical attributes are not highly correlated with some identification variables such as `number`, `code`, `serial` and `generation`.
+
+```{r eda2, fig.cap='Figure 2. Correlation table between all features in the dataset', out.width='90%'}
 knitr::include_graphics("../results/eda/EDA_correlation.png")
 ```
 
-In the correlation table (Figure 1), we can see that the numeric attributes have a high correlation with each other, which makes sense because if the pokemon is stronger, its overall score should be higher. However, their numerical attributes are not highly correlated with some identification variables such as `number`, `code`, `serial` and `generation`. 
+
 
 # Pre-processing
 
@@ -52,27 +60,28 @@ The models each have their own set of hyperparameters that will have to be optim
 
 ## Baseline
 
-In a confusion matrix, the perfect prediction has every value in a box along the diagonal, with predicted labels on the x-axis and truth labels on the y-axis. The entries that are not along the diagonal line tells us about what is being predicted incorrectly. As speculated, the dummy classifier predicts each type as the most common class, water. Fig. 2 shows the confusion matrix of the dummy classifier on the unseen Pokemon test set. The dummy classifier has an accuracy of 14.2% with a cross-validation and training score of 12.4%.
+In a confusion matrix, the perfect prediction has every value in a box along the diagonal, with predicted labels on the x-axis and truth labels on the y-axis. The entries that are not along the diagonal line tells us about what is being predicted incorrectly. As speculated, the dummy classifier predicts each type as the most common class, water. Fig. 3 shows the confusion matrix of the dummy classifier on the unseen Pokemon test set. The dummy classifier has an accuracy of 14.2% with a cross-validation and training score of 12.4%.
 
-```{r dummy, fig.cap='Figure 2. Confusion matrix visualizing the dummy classifier predictions vs the true labels.', out.width='90%'}
+```{r dummy, fig.cap='Figure 3. Confusion matrix visualizing the dummy classifier predictions vs the true labels.', out.width='90%'}
 knitr::include_graphics("../results/dummy/dummy_confusion_matrix.png")
 ```
 
 ## k-NN
 
-In our $k$ -NN model, Fig. 3 shows that each value along the diagonal line has the highest number in their respective row or column, meaning our model correctly predicts every type of Pokemon, most of the time. Our model performs pretty well at predicting some types of Pokemon such as Grass and Water type. For the Grass type, it correctly predicted 19 out of 26 possible Grass types and for Water type, it correctly predicted 33 out of 45 water types. Overall, the $k$ -NN had a test accuracy of 60.3% with a cross-validation score of 56.9% and training score of 100%. 
+In our $k$ -NN model, Fig. 4 shows that each value along the diagonal line has the highest number in their respective row or column, meaning our model correctly predicts every type of Pokemon, most of the time. Our model performs pretty well at predicting some types of Pokemon such as Grass and Water type. For the Grass type, it correctly predicted 19 out of 26 possible Grass types and for Water type, it correctly predicted 33 out of 45 water types. Overall, the $k$ -NN had a test accuracy of 60.3% with a cross-validation score of 56.9% and training score of 100%. 
 
-```{r knn, fig.cap='Figure 3. Confusion matrix visualizing predictions from the best k-NN model vs the true labels.', out.width='90%'}
+```{r knn, fig.cap='Figure 4. Confusion matrix visualizing predictions from the best k-NN model vs the true labels.', out.width='90%'}
 knitr::include_graphics("../results/knn/knn_confusion_matrix.png")
 ```
 
 ## SVC
 
-In our SVC model, Fig. 4 shows some marginal improvements in the prediction for each class. One of the largest improvements was the prediction of Ice types, increasing from 5 correctly predicted Pokemon to 10 now. Overall, the SVC has a test accuracy of 69.2% with a cross-validation score of 68.6% and training score of 100%. 
+In our SVC model, Fig. 5 shows some marginal improvements in the prediction for each class. One of the largest improvements was the prediction of Ice types, increasing from 5 correctly predicted Pokemon to 10 now. Overall, the SVC has a test accuracy of 69.2% with a cross-validation score of 68.6% and training score of 100%. 
 
-```{r svc, fig.cap='Figure 4. Confusion matrix visualizing predictions from the best SVC model vs the true labels.', out.width='90%'}
+```{r svc, fig.cap='Figure 5. Confusion matrix visualizing predictions from the best SVC model vs the true labels.', out.width='90%'}
 knitr::include_graphics("../results/svc/svc_confusion_matrix.png")
 ```
+
 # Discussion
 
 Overall, our chosen models were somewhat accurate in classifying the pokemon into their different types; both the k-NN (60.3%) and the SVC (69.2%) showed much higher accuracies than the baseline model (14.2%). Both the SVC and k-NN models showed low standard deviations in the cross-validation, 0.028 and 0.026 respectively. This shows confidence in our model accuracies. 
