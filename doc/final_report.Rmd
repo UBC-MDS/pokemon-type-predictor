@@ -15,13 +15,22 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Introduction
-Originally developed as a video game, the hit 90's pop culture franchise Pokemon flourished into multiple media streams. As was big in the 90's, Pokemon took over the trading card industry and even turned into a television show that rocked the world.
+Originally developed as a video game, the hit 90's pop culture franchise Pokemon flourished into multiple media streams. 
+As was big in the 90's, Pokemon took over the trading card industry and even turned into a television show that rocked the world.
 
-Pokemon (the creatures) share the same name as the title of the franchise. These creatures come in a variety of shapes, sizes, and colours and are used by their trainers in battles. Each Pokemon has specific attributes like type, attack, defense, and speed, which confer different strengths and weaknesses. A combination of these attributes (and a little luck) are what determines if a Pokemon will either win or lose.
+Pokemon (the creatures) share the same name as the title of the franchise. 
+These creatures come in a variety of shapes, sizes, and colours and are used by their trainers in battles. 
+Each Pokemon has specific attributes like type, attack, defense, and speed, which confer different strengths and weaknesses. 
+A combination of these attributes (and a little luck) are what determines if a Pokemon will either win or lose.
 
-In the show, the famous question "Who's that Pokemon?!" was often asked at the beginning of a commercial break, with an image of the shaded outline of a Pokemon. The show would reveal the Pokemon at the end of the commercial break, rewarding those who stayed through the advertisements.
+In the show, the famous question "Who's that Pokemon?!" was often asked at the beginning of a commercial break, with an image of the shaded outline of a Pokemon. 
+The show would reveal the Pokemon at the end of the commercial break, rewarding those who stayed through the advertisements.
 
-Inspired by this ploy of the franchise, we thought it might be interesting to predict an attribute of a given Pokemon. This thought was further developed when we remembered that as each generation of the franchise is released, the players encounter brand new Pokemon that the world has never seen. When encountering a new Pokemon, the game gives no indication of its type, leading us to our question: given the attributes of an undiscovered Pokemon, are we able to predict its type? Although this question has been explored before using solely the images of Pokemon [@shahir_2022] or their battle stats [@residentmario_2016], we are attempting to do this using both physical characteristics such as color, height, and weight, as well as their battle capabilities (abilities and stats).
+Inspired by this ploy of the franchise, we thought it might be interesting to predict an attribute of a given Pokemon. 
+This thought was further developed when we remembered that as each generation of the franchise is released, the players encounter brand new Pokemon that the world has never seen. 
+When encountering a new Pokemon, the game gives no indication of its type, leading us to our question: given the attributes of an undiscovered Pokemon, are we able to predict its type? 
+Although this question has been explored before using solely the images of Pokemon [@shahir_2022] or their battle stats [@residentmario_2016], 
+we are attempting to do this using both physical characteristics such as color, height, and weight, as well as their battle capabilities (abilities and stats).
 
 # Data
 The dataset [@hansanonymous] we are using has both numeric features (like `attack` or `defense`) and text features (like their `abilities` or `colour`) of the Pokemon. The data was cleaned by [HansAnonymous](https://gist.github.com/HansAnonymous) and originally developed by [simsketch](https://gist.github.com/simsketch). The original data can be found in the [Pokemon database](https://pokemondb.net/pokedex). All rights belong to their respective owners.
@@ -46,15 +55,36 @@ knitr::include_graphics("../results/eda/EDA_correlation.png")
 
 # Pre-processing
 
-In the EDA, we found that some columns, such as `ability2` and `type2`, contain missing values. These columns are only filled if the Pokemon have a second ability or type. Using the `Python` [@python] package `pandas` [@pandas], we imputed the missing values in these columns using the same ability or type from their respective counterparts (`type1` or `ability1`). We then split the data into a training and test set in a 70-30 split in preparation for fitting and scoring our models.
+In the EDA, we found that some columns, such as `ability2` and `type2`, contain missing values. 
+These columns are only filled if the Pokemon have a second ability or type. 
+Using the `Python` [@python] package `pandas` [@pandas], we imputed the missing values in these 
+columns using the same ability or type from their respective counterparts (`type1` or `ability1`). 
+We then split the data into a training and test set in a 70-30 split in preparation for fitting 
+and scoring our models.
 
-We dropped the columns that were generally unique or represented an index (such as `name`, `serial` and `generation`). The `total` column was also dropped as it is the sum of the other base stats. We used standard scaling on all of the base stats of the Pokemon (i.e. the numeric features) and one-hot encoded text features, since they are categorical and non-ordinal. We kept binary features (`legendary` and `mega_evolution`) as they were. We used the `handle_unknown=’ignore’` argument to `OneHotEncoder` since the new Pokemon in the test set could have abilities that Pokemon in the training set don’t have. 
+We dropped the columns that were generally unique or represented an index 
+(such as `name`, `serial` and `generation`). The `total` column was also dropped as it is the sum 
+of the other base stats. We used standard scaling on all of the base stats of the Pokemon 
+(i.e. the numeric features) and one-hot encoded text features, since they are categorical and 
+non-ordinal. We kept binary features (`legendary` and `mega_evolution`) as they were. 
+We used the `handle_unknown=’ignore’` argument to `OneHotEncoder` since the new Pokemon in the 
+test set could have abilities that Pokemon in the training set don’t have. 
 
 # Analysis
 
-We attempted to use two different models to classify Pokemon by type: a Support Vector Classifier (SVC), and $k$ - Nearest Neighbours ($k$ -NN). We also compared these two models to a baseline model, the dummy classifier. All of these models were implemented in `sklearn` [@sklearn].
+We attempted to use two different models to classify Pokemon by type: 
+a Support Vector Classifier (SVC), and $k$ - Nearest Neighbours ($k$ -NN). 
+We use these models since theoretically, a Pokemon of similar stats, colour etc. 
+will have the same type as other Pokemon with those same similar stats. These two models 
+are examples of analogy based algorithms, and innately support multi-class classification
+without using 'one-vs-one' or 'one-vs-rest' methods, so we believe they will perform well 
+given the task at hand. We also compared these two models to a baseline model, the dummy classifier. 
+All of these models were implemented in `sklearn` [@sklearn].
 
-The models each have their own set of hyperparameters that will have to be optimized using cross-validation. We will use average accuracy as the metric to determine each of these hyperparameters and show plots of the accuracy and hyperparameters to determine the best ones. We use these models since theoretically, a Pokemon of similar stats, colour etc. will have the same type as other Pokemon with those same similar stats. These two models are examples of analogy based algorithms, which we believe will perform well given the task at hand.
+The models each have their own set of hyperparameters that will have to be optimized 
+using cross-validation. We will use average accuracy as the metric to determine each of 
+these hyperparameters and show plots of the accuracy and hyperparameters to determine 
+the best ones. 
 
 # Results
 
