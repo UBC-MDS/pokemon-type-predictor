@@ -58,6 +58,9 @@ Each row in the dataset contains a different Pokemon with various attributes. Th
 
 The final report is available [here](/doc/final_report.md)
 
+Webpage version:
+https://htmlpreview.github.io/?https://github.com/UBC-MDS/pokemon-type-predictor/blob/main/doc/final_report.html
+
 ## Usage
 
 #### 1\. Without using Docker
