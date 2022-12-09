@@ -101,7 +101,7 @@ docker build --tag pokeball .
 You can then reproduce the analysis using:
 
 ```console
-docker run -it --rm -v /$(pwd):/home/jovyan testpoke make -C /home/jovyan/ 
+docker run -it --rm -v /$(pwd):/home/jovyan pokeball make -C /home/jovyan/ 
 ```
 
 To reset the repo to a clean state, with no intermediate or results
@@ -109,7 +109,7 @@ files, run the following command at the command line/terminal from the
 root directory of this project:
 
 ```console
-docker run -it --rm -v /$(pwd):/home/jovyan testpoke make -C /home/jovyan/ clean
+docker run -it --rm -v /$(pwd):/home/jovyan pokeball make -C /home/jovyan/ clean
 ```
 
 ## Dependencies
