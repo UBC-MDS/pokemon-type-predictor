@@ -1,2 +1,2 @@
 rank_test_score,mean_fit_time,mean_score_time,mean_test_score,std_test_score,mean_train_score,std_train_score
-1,0.014,0.008,0.124,0.003,0.124,0.001
+1,0.01,0.007,0.124,0.003,0.124,0.001
