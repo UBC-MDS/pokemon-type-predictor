@@ -82,15 +82,22 @@ given the task at hand. We also compared these two models to a baseline model, t
 All of these models were implemented in `sklearn` [@sklearn].
 
 The models each have their own set of hyperparameters that will have to be optimized 
-using cross-validation. We will use average accuracy as the metric to determine each of 
-these hyperparameters and show plots of the accuracy and hyperparameters to determine 
+using cross-validation. For the $k$-NN model, we will optimize the number of neighbours, 
+and for SVC, we will optimize the `C` and `gamma` parameters, which control the model complexity.
+Since we have 18 classes that we are equally interested in, we will use average accuracy as the scoring 
+metric to optimize each of these hyperparameters and show plots of the accuracy and hyperparameters to determine 
 the best ones. 
 
 # Results
 
 ## Baseline
 
-In a confusion matrix, the perfect prediction has every value in a box along the diagonal, with predicted labels on the x-axis and truth labels on the y-axis. The entries that are not along the diagonal line tells us about what is being predicted incorrectly. As speculated, the dummy classifier predicts each type as the most common class, water. Fig. 3 shows the confusion matrix of the dummy classifier on the unseen Pokemon test set. The dummy classifier has an accuracy of 14.2% with a cross-validation and training score of 12.4%.
+In a confusion matrix, the perfect prediction has every value in a box along the diagonal, 
+with predicted labels on the x-axis and truth labels on the y-axis. The entries that are not 
+along the diagonal line tells us about what is being predicted incorrectly. As speculated, 
+the dummy classifier predicts each type as the most common class, water. Fig. 3 shows the 
+confusion matrix of the dummy classifier on the unseen Pokemon test set. The dummy classifier 
+has an accuracy of 14.2% with a cross-validation and training score of 12.4%.
 
 ```{r dummy, fig.cap='Figure 3. Confusion matrix visualizing the dummy classifier predictions vs the true labels.', out.width='90%'}
 knitr::include_graphics("../results/dummy/dummy_confusion_matrix.png")
@@ -98,7 +105,12 @@ knitr::include_graphics("../results/dummy/dummy_confusion_matrix.png")
 
 ## k-NN
 
-In our $k$ -NN model, Fig. 4 shows that each value along the diagonal line has the highest number in their respective row or column, meaning our model correctly predicts every type of Pokemon, most of the time. Our model performs pretty well at predicting some types of Pokemon such as Grass and Water type. For the Grass type, it correctly predicted 19 out of 26 possible Grass types and for Water type, it correctly predicted 33 out of 45 water types. Overall, the $k$ -NN had a test accuracy of 60.3% with a cross-validation score of 56.9% and training score of 100%. 
+In our $k$ -NN model, Fig. 4 shows that each value along the diagonal line has the highest number 
+in their respective row or column, meaning our model correctly predicts every type of Pokemon, 
+most of the time. Our model performs pretty well at predicting some types of Pokemon such as Grass 
+and Water type. For the Grass type, it correctly predicted 19 out of 26 possible Grass types and 
+for Water type, it correctly predicted 33 out of 45 water types. Overall, the $k$ -NN had a test 
+accuracy of 60.3% with a cross-validation score of 56.9% and training score of 100%. 
 
 ```{r knn, fig.cap='Figure 4. Confusion matrix visualizing predictions from the best k-NN model vs the true labels.', out.width='90%'}
 knitr::include_graphics("../results/knn/knn_confusion_matrix.png")
@@ -106,7 +118,10 @@ knitr::include_graphics("../results/knn/knn_confusion_matrix.png")
 
 ## SVC
 
-In our SVC model, Fig. 5 shows some marginal improvements in the prediction for each class. One of the largest improvements was the prediction of Ice types, increasing from 5 correctly predicted Pokemon to 10 now. Overall, the SVC has a test accuracy of 69.2% with a cross-validation score of 68.6% and training score of 100%. 
+In our SVC model, Fig. 5 shows some marginal improvements in the prediction for each class. 
+One of the largest improvements was the prediction of Ice types, increasing from 5 correctly 
+predicted Pokemon to 10 now. Overall, the SVC has a test accuracy of 69.2% with a cross-validation 
+score of 68.6% and training score of 100%. 
 
 ```{r svc, fig.cap='Figure 5. Confusion matrix visualizing predictions from the best SVC model vs the true labels.', out.width='90%'}
 knitr::include_graphics("../results/svc/svc_confusion_matrix.png")
@@ -114,10 +129,24 @@ knitr::include_graphics("../results/svc/svc_confusion_matrix.png")
 
 # Discussion
 
-Overall, our chosen models were somewhat accurate in classifying the pokemon into their different types; both the k-NN (60.3%) and the SVC (69.2%) showed much higher accuracies than the baseline model (14.2%). Both the SVC and k-NN models showed low standard deviations in the cross-validation, 0.028 and 0.026 respectively. This shows confidence in our model accuracies. 
+Overall, our chosen models were somewhat accurate in classifying the pokemon into their different 
+types; both the k-NN (60.3%) and the SVC (69.2%) showed much higher accuracies than the baseline 
+model (14.2%). Both the SVC and k-NN models showed low standard deviations in the cross-validation, 
+0.028 and 0.026 respectively. This shows confidence in our model accuracies. 
 
-However, there are some limitations to our models. We note that both models are significantly overfitting, since they both have 100% training accuracies. The best $k$-NN model was with 1 neighbour, which is also indicative of overfitting. The second-best $k$-NN model was with $k=8$, or 8 neighbours, but the accuracy dropped to about 49%. In terms of our data, we initially assumed that all rows were independent of each other, but our data contained different forms of the same pokemon (often with very similar, if not the exact same stats), and most of the time they definitely had the same type.
+However, there are some limitations to our models. We note that both models are significantly 
+overfitting, since they both have 100% training accuracies. The best $k$-NN model had 1 
+neighbour, which is also indicative of overfitting. The second-best $k$-NN model was with $k=8$, 
+or 8 neighbours, but the accuracy dropped to about 49%. In terms of our data, we initially assumed 
+that all rows were independent of each other, but our data contained different forms of the same 
+pokemon (often with very similar, if not the exact same stats), and most of the time they definitely 
+had the same type.
 
-To improve these models in future, we could investigate some of the most misclassified observations and compare them to those which were classified correctly. We could see which features possibly led to misclassification and explore if any feature engineering could improve the model. We could also redo this analysis with duplicated forms removed, or with only non-evolved Pokemon as some Pokemon can evolve to stronger forms while keeping similar types and structure of abilities, which may also serve as “duplicate values”.
+To improve these models in future, we could investigate some of the most misclassified observations 
+and compare them to those which were classified correctly. We could see which features possibly led 
+to misclassification and explore if any feature engineering could improve the model. We could also 
+redo this analysis with duplicated forms removed, or with only non-evolved Pokemon as some Pokemon 
+can evolve to stronger forms while keeping similar types and structure of abilities, which may also 
+serve as “duplicate values”.
 
 # References
