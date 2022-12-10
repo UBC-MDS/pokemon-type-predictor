@@ -1,11 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
-<!-- #region -->
-
 # Pokemon Type Predictor
 
 ## Authors
@@ -137,18 +129,47 @@ make clean
 
 To replicate the analysis using Docker, first clone this GitHub repository. You will also need Docker installed on your computer and have it turned on. You can follow the instructions [here](https://docs.docker.com/get-docker/) if you need to install Docker. After installation, navigate to the parent directory of the repository.
 
+> Note the following commands will differ depending on your system.
+
 To reset the repository to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
+
+**Mac (Intel)/Linux:**
 
 ```console
 docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C /home/jovyan clean
 ```
 
+**Mac (M1/M2):**
+
+```console
+docker run --rm --platform linux/amd64 -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C /home/jovyan clean
+```
+
+**Windows:**
+
+```console
+docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C //home//jovyan clean
+```
+
 Then, you can reproduce the analysis using the following command:
+
+**Mac (Intel)/Linux:**
 
 ```console
 docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C /home/jovyan all
+```
+
+**Mac (M1/M2):**
+
+```console
+docker run --rm --platform linux/amd64 -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C /home/jovyan all
+```
+
+**Windows:**
+```console
+docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C //home//jovyan all
 ```
 
 ## Dependencies {#dependencies}
