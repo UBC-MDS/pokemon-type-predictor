@@ -1,3 +1,4 @@
+<!-- #region -->
 # Pokemon Type Predictor
 
 ## Authors
@@ -13,19 +14,19 @@
 
 Data analysis project created in part of requirements for DSCI 522 (Data
 Science Workflows); a course in the Master of Data Science program at
-the University of British Columbia.
+the University of British Columbia. All members of this project abided by a [code of conduct](CODE_OF_CONDUCT.md).
 
 ## About
 
 In this project, we attempt to classify a Pokemon's type (of which there
 are 18 possible types) based on the other stats (such as attack,
-defense, etc.) that it has. We chose $k$-Nearest Neighbours ($k$-NN) and
+defense, etc.) that it has. We chose k-Nearest Neighbours (k-NN) and
 Support Vector Classifier (SVC) algorithms for our models since they
 naturally support multi-class classifications, without having to use
 'One-vs-One' or 'One-vs-Rest' methods. We use accuracy as the metric to
 score our models since there is no detriment to false positives or
 negatives, but we do want to know how many of the unknown Pokemon will
-be predicted correctly. On the unseen test data, the $k$ -NN model
+be predicted correctly. On the unseen test data, the k -NN model
 predicted 60% of the new Pokemon correctly while the SVC model predicted
 67% correctly. Since these are not very accurate results, we recommend
 trying different estimators to fill up that Pokedex!
@@ -83,7 +84,7 @@ in the raw dataset is listed below:
 
 ## Report
 
-The final report is available [here](/doc/final_report.md)
+The final report is available [here](/doc/final_report.md).
 
 Webpage version:
 <https://htmlpreview.github.io/?https://github.com/UBC-MDS/pokemon-type-predictor/blob/main/doc/final_report.html>
@@ -94,7 +95,7 @@ Webpage version:
 
 To replicate the analysis, first clone this GitHub repository. Then,
 install `nb_conda_kernels` in your **base** environment. Now, install
-the dependencies listed in the `env-poke-type-pred.yaml` file below as
+the [dependencies](#Dependencies) listed in the `env-poke-type-pred.yaml` [file](env-poke-type-pred.yaml) below as
 an Anaconda environment, using:
 
 ``` console
@@ -109,7 +110,7 @@ conda activate poketype
 ```
 
 You will also need to install the R version and R packages listed
-[here](#dependencies).
+[here](#Dependencies).
 
 Then run this command:
 
@@ -124,6 +125,7 @@ root directory of this project:
 ``` console
 make clean
 ```
+The details of the above commands can be found in the [Makefile](Makefile).
 
 ### 2\. Using Docker
 
@@ -153,6 +155,7 @@ docker run --rm --platform linux/amd64 -v /$(pwd):/home/jovyan/ wthass/pokemon-t
 docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C //home//jovyan clean
 ```
 
+
 Then, you can reproduce the analysis using the following command:
 
 **Mac (Intel)/Linux:**
@@ -172,7 +175,7 @@ docker run --rm --platform linux/amd64 -v /$(pwd):/home/jovyan/ wthass/pokemon-t
 docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C //home//jovyan all
 ```
 
-## Dependencies {#dependencies}
+## Dependencies
 
 - Conda Packages:
   - ipykernel
@@ -198,7 +201,7 @@ docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest ma
 ## License
 
 The Pokemon Type Predictor materials here are licensed under the
-Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA).
+Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA) and can be found [here](LICENSE).
 
 ## Attributions
 
@@ -209,3 +212,8 @@ The data is attributed to the GitHub users:
 [HansAnonymous](https://gist.github.com/HansAnonymous/56d3c1f8136f7e0385cc781cf18d486c),
 [simsketch](https://gist.github.com/simsketch) and the online [Pokemon
 database](https://pokemondb.net/pokedex). <!-- #endregion -->
+<!-- #endregion -->
+
+```python
+
+```
