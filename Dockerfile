@@ -39,6 +39,7 @@ RUN pip install --upgrade pip \
     selenium==4.2.0 \
     && rm -fr /root/.cache
 
+# set the R path
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib/:${LD_LIBRARY_PATH}
 
 # install R packages
