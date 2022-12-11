@@ -2,7 +2,7 @@
 
 Thank you for your interest in trying to predict Pokemon types! We hope you have as much fun as we're having trying to determine a Pokemon's type. Any contributions made will be recorded in this document and updated as we go.
 
-Please read our Code of Conduct to keep the data science region approachable and respectable. Don't be a Shamus trainer! (From the show, see [here](https://pokemon.fandom.com/wiki/Shamus))
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) to keep the data science region approachable and respectable. Don't be a Shamus trainer! (From the show, see [here](https://pokemon.fandom.com/wiki/Shamus))
 
 In this guide, you will get an overview of how to contribute to the project. From opening an issue, creating a PR, reviewing, and merging the PR, we'll get you to be the best contributor like no one ever was!
 

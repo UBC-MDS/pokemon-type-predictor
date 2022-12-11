@@ -117,7 +117,6 @@ Then run this command:
 ``` console
 make all
 ```
-
 To reset the repo to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
@@ -125,7 +124,7 @@ root directory of this project:
 ``` console
 make clean
 ```
-The details of the above commands can be found in the [Makefile](Makefile).
+The details of the above commands can be found in the [Makefile](Makefile). This method should take at least a 1 minute to completely run.
 
 ### 2\. Using Docker
 
@@ -174,6 +173,8 @@ docker run --rm --platform linux/amd64 -v /$(pwd):/home/jovyan/ wthass/pokemon-t
 ```console
 docker run --rm -v /$(pwd):/home/jovyan/ wthass/pokemon-type-predictor:latest make -C //home//jovyan all
 ```
+
+If using this method for the first time, it should take at least 8 minutes to download the Docker image and run the analysis. Any subsequent runs should take a maximum of 2 minutes.
 
 ## Dependencies
 
